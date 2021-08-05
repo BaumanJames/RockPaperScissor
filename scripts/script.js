@@ -1,7 +1,8 @@
 let computerChoice = '';
 let playerWins = 0;
 let cpWins = 0;
-    
+let buttons = document.querySelectorAll('.click');
+let winner = document.querySelector('.results');
 function computerPlay (){
     let randomNumber = Math.random();
     if(randomNumber <= .333){
@@ -10,29 +11,36 @@ function computerPlay (){
       return 'Paper';
     } return 'Scissors'
 }
-function rPS(playerInput, computerInput){
+  
+function rPS(playerPH, computerInput){
   computerInput = computerPlay().toLowerCase();
-  let playerChoice = playerInput.toLowerCase();
-  let winner = '';
+  let playerChoice = playerPH.toLowerCase();
+
    if(playerChoice == computerInput){
-      winner = "Tie! Go again!"
+      winner.innerHTML = "Tie! Go again!"
     console.log(winner);
     return winner
    } else if ((playerChoice == "rock" && computerInput == "scissors") ||
             (playerChoice == "paper" && computerInput == "rock") ||
             (playerChoice == "scissors" && computerInput == "paper")){
       playerWins= ++playerWins;
-      winner = `You Win! ${playerChoice} beats ${computerInput}!`;
+      winner.innerHTML = `You Win! ${playerChoice} beats ${computerInput}!`;
       console.log(winner)
       return winner
   } else 
         cpWins= ++cpWins
   ;
-        winner = `You Lose! ${computerInput} beats ${playerChoice}!`;
+        winner.innerHTML = `You Lose! ${computerInput} beats ${playerChoice}!`;
   console.log(winner)
   return winner
 }
-function game(){
+console.log(winner)
+document.querySelector('.buttons').addEventListener('click', function(e){ 
+  let playerInput = e.toElement.textContent;
+  (rPS(playerInput))
+  
+});
+/*function game(){
     
     while(playerWins < 3 || cpWins < 3){
         let roundChoice = window.prompt("Rock, Paper, or Scissors?", "rock")
@@ -45,4 +53,5 @@ console.log(cpWins);
 
 
 game()
+*/
 
