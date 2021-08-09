@@ -3,6 +3,7 @@ let playerWins = 0;
 let cpWins = 0;
 let buttons = document.querySelectorAll('.click');
 let winner = document.querySelector('.results');
+
 function computerPlay (){
     let randomNumber = Math.random();
     if(randomNumber <= .333){
@@ -12,6 +13,18 @@ function computerPlay (){
     } return 'Scissors'
 }
   
+function keepCPScore (){
+  let cpScoreboard = document.querySelector('#cpWins')
+
+  cpScoreboard.textContent = `Computer Wins: ${cpWins}`;
+}
+
+function keepPlayerScore (){
+  let playerScoreboard = document.querySelector('#playerWins')
+
+  playerScoreboard.textContent = `Player Wins: ${playerWins}`;
+}
+
 function rPS(playerPH, computerInput){
   computerInput = computerPlay().toLowerCase();
   let playerChoice = playerPH.toLowerCase();
@@ -24,21 +37,33 @@ function rPS(playerPH, computerInput){
             (playerChoice == "paper" && computerInput == "rock") ||
             (playerChoice == "scissors" && computerInput == "paper")){
       playerWins= ++playerWins;
+      keepPlayerScore();
       winner.innerHTML = `You Win! ${playerChoice} beats ${computerInput}!`;
       console.log(winner)
       return winner
   } else 
-        cpWins= ++cpWins
-  ;
+        cpWins= ++cpWins;
+        keepCPScore();
         winner.innerHTML = `You Lose! ${computerInput} beats ${playerChoice}!`;
   console.log(winner)
   return winner
 }
-console.log(winner)
+
+function declareWinner (){
+  buttons.disabled = true;
+  if (playerWins > cpWins){
+    winner.innerHTML = "Congrats! You beat the Computer!";
+  } else winner.innerHTML = "The Computer Wins! Don't give up and try again!"
+}
+
 document.querySelector('.buttons').addEventListener('click', function(e){ 
   let playerInput = e.toElement.textContent;
-  (rPS(playerInput))
   
+  if (playerWins === 5 || cpWins === 5){
+    declareWinner();
+    return
+  }
+  (rPS(playerInput))
 });
 /*function game(){
     
