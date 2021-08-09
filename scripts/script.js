@@ -3,6 +3,7 @@ let playerWins = 0;
 let cpWins = 0;
 let buttons = document.querySelectorAll('.click');
 let winner = document.querySelector('.results');
+let retry = document.querySelector('#retry');
 
 function computerPlay (){
     let randomNumber = Math.random();
@@ -54,13 +55,22 @@ function declareWinner (){
   if (playerWins > cpWins){
     winner.innerHTML = "Congrats! You beat the Computer!";
   } else winner.innerHTML = "The Computer Wins! Don't give up and try again!"
+  
 }
-
+retry.addEventListener('click', function(e){
+  playerWins = 0;
+  cpWins = 0; 
+  keepCPScore();
+  keepPlayerScore();
+  winner.innerHTML = "Play a round!"
+  retry.setAttribute('hidden','true');
+})
 document.querySelector('.buttons').addEventListener('click', function(e){ 
   let playerInput = e.toElement.textContent;
   
   if (playerWins === 5 || cpWins === 5){
     declareWinner();
+    retry.removeAttribute('hidden');
     return
   }
   (rPS(playerInput))
