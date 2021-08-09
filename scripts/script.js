@@ -65,9 +65,9 @@ retry.addEventListener('click', function(e){
   winner.innerHTML = "Play a round!"
   retry.setAttribute('hidden','true');
 })
+
 document.querySelector('.buttons').addEventListener('click', function(e){ 
   let playerInput = e.toElement.textContent;
-  
   if (playerWins === 5 || cpWins === 5){
     declareWinner();
     retry.removeAttribute('hidden');
